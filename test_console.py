@@ -4,17 +4,18 @@ import re
 from shlex import split
 
 import models
+import tests
 from models import storage
-from models.base_model import BaseModel
-from models.user import User
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.state import State
-from models.review import Review
+from tests.test_base_model import BaseModel
+from tests.test_user import User
+from tests.test_city import City
+from tests.test_amenity import Amenity
+from tests.test_place import Place
+from tests.test_state import State
+from tests.test_review import Review
 
 class HBNBCommand(cmd.Cmd):
-    prompt = "(hbnb)"
+    prompt = "(ALXSE)"
 
     def do_quit(self, arg):
         """Quit command to exit the program"""

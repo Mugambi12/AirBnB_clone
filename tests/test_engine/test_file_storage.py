@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 import json
 
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
+from tests.test_base_model import BaseModel
+from tests.test_user import User
+from tests.test_state import State
+from tests.test_amenity import Amenity
+from tests.test_city import City
+from tests.test_place import Place
+from tests.test_review import Review
 
 
 class FileStorage:
