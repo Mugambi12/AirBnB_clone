@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+#!/usr/bin/env python3
 import cmd
 import re
 from shlex import split
@@ -11,7 +13,6 @@ from models.amenity import Amenity
 from models.place import Place
 from models.state import State
 from models.review import Review
-
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
@@ -39,7 +40,6 @@ class HBNBCommand(cmd.Cmd):
             instance = globals()[arg]()
             instance.save()
             print(instance.id)
-            self.storage.save()
 
     def do_show(self, arg):
         """Show details of a model instance"""
