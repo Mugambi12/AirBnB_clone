@@ -47,12 +47,15 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
-        argdict = {
+        arg_dict = {
             "all": self.do_all,
             "show": self.do_show,
             "destroy": self.do_destroy,
             "count": self.do_count,
-            "update": self.do_update
+            "update": self.do_update,
+            "help": self.do_help,
+            "quit": self.do_quit,
+            "exit": self.do_quit
         }
         match = re.search(r"\.", arg)
         if match is not None:
@@ -61,9 +64,9 @@ class HBNBCommand(cmd.Cmd):
             if match is not None:
                 command_exc = [arg_search[1][:matched_arg.span()[0]],
                                matched_arg.group()[1:-1]]
-                if command_exc[0] in argdict.keys():
+                if command_exc[0] in arg_dict.keys():
                     call = "{} {}".format(arg_search[0], command_exc[1])
-                    return argdict[command_exc[0]](call)
+                    return arg_dict[command_exc[0]](call)
         print("*** Unknown syntax: {}".format(arg))
         return False
 
@@ -72,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, arg):
-        """EOF command to exit the program"""
+        """EOF signal to exit the program"""
         print("")  # Print a new line before exiting
         return True
 
@@ -81,7 +84,9 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Create a new instance of a model"""
+        """Usage: create <class>
+        Create a new class instance and prints id of created instance.
+        """
         parses_arg = parse(arg)
         if len(parses_arg) == 0:
             print("** class name missing **")
@@ -92,7 +97,9 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_show(self, arg):
-        """Show details of a model instance"""
+        """Usage: show <class> <id> or <class>.show(<id>)
+        Display the class instance of a given instance.
+        """
         parsed_arg = parse(arg)
         object_dict = storage.all()
         if len(parsed_arg) == 0:
@@ -107,24 +114,27 @@ class HBNBCommand(cmd.Cmd):
             print(object_dict["{}.{}".format(parsed_arg[0], parsed_arg[1])])
 
     def do_destroy(self, arg):
-        """Delete a model instance"""
-        args = arg.split()
-        if not arg:
+        """Usage: destroy <class> <id> or <class>.destroy(<id>)
+        Delete a class instance of a given id."""
+        parsed_arg = parse(arg)
+        object_dict = storage.all()
+        if len(parsed_arg) == 0:
             print("** class name missing **")
-        elif args[0] not in globals():
+        elif parsed_arg[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-        elif len(args) < 2:
+        elif len(parsed_arg) == 1:
             print("** instance id missing **")
+        elif "{}.{}".format(parsed_arg[0],
+                            parsed_arg[1]) not in object_dict.keys():
+            print("** no instance found **")
         else:
-            key = args[0] + "." + args[1]
-            if key in storage.all():
-                storage.all().pop(key)
-                storage.save()
-            else:
-                print("** no instance found **")
+            del object_dict["{}.{}".format(parsed_arg[0], parsed_arg[1])]
+            storage.save()
 
     def do_all(self, arg):
-        """Show all instances of a model"""
+        """Usage: all or all <class> or <class>.all()
+        Display all instances of a specified class.
+        If no class is specified, displays all the instance of the objects."""
         par_arg = parse(arg)
         if len(par_arg) > 0 and par_arg[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
@@ -138,7 +148,11 @@ class HBNBCommand(cmd.Cmd):
             print(obj_list)
 
     def do_update(self, arg):
-        """Update attributes of a model instance"""
+        """Usage: update <class> <id> <attribute_name> <attribute_value> or
+       <class>.update(<id>, <attribute_name>, <attribute_value>) or
+       <class>.update(<id>, <dictionary>)
+        Update a class instance of a given id by adding or updating
+        a given attribute key/value pair"""
         parsed_arg = parse(arg)
         obj_dict = storage.all()
 
@@ -183,7 +197,8 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_count(self, arg):
-        """Count the number of instances of a model"""
+        """Usage: count <class> or <class>.count()
+        Prints the number of instances of a given class."""
         parsed_arg = parse(arg)
         count = 0
         for obj in storage.all().values():

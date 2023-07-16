@@ -31,7 +31,7 @@ class TestCity(unittest.TestCase):
         if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    def test_8_city_model_attributes(self):
+    def test_city_model_attributes(self):
         """Tests the attributes of City class."""
         attributes = storage.attributes()["City"]
         city_model = City()
@@ -39,7 +39,7 @@ class TestCity(unittest.TestCase):
             self.assertTrue(hasattr(city_model, key))
             self.assertEqual(type(getattr(city_model, key, None)), val)
 
-    def test_8_city_model_instance(self):
+    def test_city_model_instance(self):
         """Tests for instance of City class."""
         city_model = City()
         self.assertEqual(str(type(city_model)), "<class 'models.city.City'>")

@@ -31,7 +31,7 @@ class TestState(unittest.TestCase):
         if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    def test_8_state_model_instance(self):
+    def test_state_model_instance(self):
         """Tests for instance of State class."""
         state_model = State()
         self.assertEqual(str(type(state_model)),
@@ -39,7 +39,7 @@ class TestState(unittest.TestCase):
         self.assertIsInstance(state_model, State)
         self.assertTrue(issubclass(type(state_model), BaseModel))
 
-    def test_8_attributes(self):
+    def test_attributes(self):
         """Tests for State class attributes."""
         attributes = storage.attributes()["State"]
         state_model = State()

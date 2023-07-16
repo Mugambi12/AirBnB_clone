@@ -31,7 +31,7 @@ class TestAmenity(unittest.TestCase):
         if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    def test_8_amenity_model_attributes(self):
+    def test_amenity_model_attributes(self):
         """Tests for valid attributes of Amenity class"""
         attributes = storage.attributes()["Amenity"]
         amenity = Amenity()
@@ -39,7 +39,7 @@ class TestAmenity(unittest.TestCase):
             self.assertTrue(hasattr(amenity, key))
             self.assertEqual(type(getattr(amenity, key, None)), val)
 
-    def test_8_amenity_model_instance(self):
+    def test_amenity_model_instance(self):
         """Tests for instance amenity class."""
         amenity = Amenity()
         self.assertEqual(str(type(amenity)),

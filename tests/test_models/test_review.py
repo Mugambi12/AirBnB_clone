@@ -32,7 +32,7 @@ class TestReview(unittest.TestCase):
         if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    def test_8_review_model_instance(self):
+    def test_review_model_instance(self):
         """Tests for Review class instance"""
         review_model = Review()
         self.assertEqual(str(type(review_model)),
@@ -40,7 +40,7 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(review_model, Review)
         self.assertTrue(issubclass(type(review_model), BaseModel))
 
-    def test_8_attributes(self):
+    def test_attributes(self):
         """Tests for Review class attributes."""
         attributes = storage.attributes()["Review"]
         review_model = Review()

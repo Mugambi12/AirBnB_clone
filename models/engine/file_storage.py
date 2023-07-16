@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-"""FileStorage Module Class"""
 import datetime
 import json
 import os
+
+"""FileStorage Module Class"""
 
 
 class FileStorage:
