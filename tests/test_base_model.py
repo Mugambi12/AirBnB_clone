@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from tests import test_storage
+from models import storage
 
 
 class BaseModel:
