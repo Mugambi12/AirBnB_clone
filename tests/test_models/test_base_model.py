@@ -31,8 +31,8 @@ class TestBaseModel(unittest.TestCase):
         if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    def test_3_class_instantiation(self):
-        """Tests instantiation of BaseModel class."""
+    def test_3_base_model_instance(self):
+        """Tests for instance of BaseModel class."""
         base_model = BaseModel()
         self.assertEqual(str(type(base_model)),
                          "<class 'models.base_model.BaseModel'>")
@@ -63,12 +63,12 @@ class TestBaseModel(unittest.TestCase):
         diff = base_model.created_at - date_now
         self.assertTrue(abs(diff.total_seconds()) < 0.1)
 
-    def test_3_model_id(self):
+    def test_3_base_model_id(self):
         """Tests for unique model's ids"""
         model_id = [BaseModel().id for i in range(1000)]
         self.assertEqual(len(set(model_id)), len(model_id))
 
-    def test_3_model_save(self):
+    def test_3_base_model_save(self):
         """Tests the save method on the base model class"""
         base_model = BaseModel()
         time.sleep(0.5)
@@ -77,7 +77,7 @@ class TestBaseModel(unittest.TestCase):
         diff = base_model.updated_at - date_now
         self.assertTrue(abs(diff.total_seconds()) < 0.01)
 
-    def test_3_model_str(self):
+    def test_3_base_model_str(self):
         """Tests for __str__ method on the base model class"""
         base_model = BaseModel()
         regular_exp = re.compile(r"^\[(.*)\] \((.*)\) (.*)$")
@@ -93,7 +93,7 @@ class TestBaseModel(unittest.TestCase):
         base_model_cpy["updated_at"] = repr(base_model_cpy["updated_at"])
         self.assertEqual(repaced_grp_3, base_model_cpy)
 
-    def test_3__model_to_dict(self):
+    def test_3_base_model_to_dict(self):
         """Tests for to_dict()  on the base model class"""
         base_model = BaseModel()
         base_model.name = "Gabriel"
@@ -106,8 +106,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(user["name"], base_model.name)
         self.assertEqual(user["age"], base_model.age)
 
-    def test_4_instantiation(self):
-        """Tests for instantiation with **kwargs."""
+    def test_4_base_model_instance(self):
+        """Tests for instance with **kwargs."""
         base_model = BaseModel()
         base_model.name = "ALX SE"
         base_model.my_number = 1232
@@ -115,8 +115,8 @@ class TestBaseModel(unittest.TestCase):
         my_new_model = BaseModel(**my_model_json)
         self.assertEqual(my_new_model.to_dict(), base_model.to_dict())
 
-    def test_4_instantiation_with_custom_dict(self):
-        """Tests for instantiation with **kwargs from custom dict."""
+    def test_4_base_model_instance_with_custom_dict(self):
+        """Tests for instance with **kwargs from custom dict."""
         custom_dict = {"__class__": "BaseModel",
                        "updated_at":
                            datetime(2050, 12, 30, 23,
@@ -129,7 +129,7 @@ class TestBaseModel(unittest.TestCase):
         base_model = BaseModel(**custom_dict)
         self.assertEqual(base_model.to_dict(), custom_dict)
 
-    def test_5_model_save(self):
+    def test_5_base_model_instance_save(self):
         """Tests that model save"""
         self.resetStorage()
         base_model = BaseModel()
