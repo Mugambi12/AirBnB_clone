@@ -13,6 +13,7 @@ from models.place import Place
 from models.state import State
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
@@ -82,7 +83,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            objects = [v for k, v in storage.all().items() if k.split(".")[0] == args[0]]
+            objects = [v for k, v in storage.all().items() if k.split(".")[0]
+                       == args[0]]
         print([str(obj) for obj in objects])
 
     def do_update(self, arg):
@@ -115,7 +117,8 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in globals():
             print("** class doesn't exist **")
         else:
-            count = len([v for k, v in storage.all().items() if k.split(".")[0] == args[0]])
+            count = len([v for k, v in storage.all().items() if k.split(".")[0]
+                         == args[0]])
             print(count)
 
     def do_exit(self, arg):
