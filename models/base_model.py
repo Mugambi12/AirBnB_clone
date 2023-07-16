@@ -20,7 +20,7 @@ class BaseModel:
             storage.new(self)
 
     def save(self):
-        """Update the updated_at attribute and save the instance to JSON file"""
+        """Update updated_at attribute and save the instance to JSON file"""
         self.updated_at = datetime.now()
         storage.save()
 
@@ -34,4 +34,5 @@ class BaseModel:
 
     def __str__(self):
         """Return a string representation of the instance"""
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
+                                     self.__dict__)

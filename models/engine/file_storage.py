@@ -21,7 +21,8 @@ class FileStorage:
     def save(self):
         """Save the __objects to JSON file."""
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
-            all_objects = {key: obj.to_dict() for key, obj in FileStorage.__objects.items()}
+            all_objects = {key: obj.to_dict() for key, obj in FileStorage.
+                           __objects.items()}
             json.dump(all_objects, f)
 
     def reload(self):
@@ -30,7 +31,8 @@ class FileStorage:
             return
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             obj_dict = json.load(f)
-            obj_dict = {key: self.classes()[obj["__class__"]](**obj)
+            obj_dict = {
+                key: self.classes()[obj["__class__"]](**obj)
                 for key, obj in obj_dict.items()}
             FileStorage.__objects = obj_dict
 
@@ -45,12 +47,12 @@ class FileStorage:
         from models.review import Review
 
         classes = {"BaseModel": BaseModel,
-                "User": User,
-                "State": State,
-                "City": City,
-                "Amenity": Amenity,
-                "Place": Place,
-                "Review": Review}
+                   "User": User,
+                   "State": State,
+                   "City": City,
+                   "Amenity": Amenity,
+                   "Place": Place,
+                   "Review": Review}
         return classes
 
     def attributes(self):
