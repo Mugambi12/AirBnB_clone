@@ -108,20 +108,20 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Delete a model instance"""
-        parsed_arg = parse(arg)
-        object_dict = storage.all()
-        if len(parsed_arg) == 0:
+        args = arg.split()
+        if not arg:
             print("** class name missing **")
-        elif parsed_arg[0] not in HBNBCommand.__classes:
+        elif args[0] not in globals():
             print("** class doesn't exist **")
-        elif len(parsed_arg) == 1:
+        elif len(args) < 2:
             print("** instance id missing **")
-        elif "{}.{}".format(parsed_arg[0],
-                            parsed_arg[1]) not in object_dict.keys():
-            print("** no instance found **")
         else:
-            del object_dict["{}.{}".format(parsed_arg[0], object_dict[1])]
-            storage.save()
+            key = args[0] + "." + args[1]
+            if key in storage.all():
+                storage.all().pop(key)
+                storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, arg):
         """Show all instances of a model"""
